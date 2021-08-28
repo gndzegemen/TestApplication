@@ -17,7 +17,6 @@ namespace DataAccess.Data
 
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Test> Tests { get; set; }
-        public DbSet<HotelTest> HotelTests { get; set; }
         public DbSet<Result> Results{ get; set; }
 
     }

@@ -2,7 +2,7 @@
 
 namespace DataAccess.Migrations
 {
-    public partial class AddDataInHottelsTable : Migration
+    public partial class AddDataInHotelsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

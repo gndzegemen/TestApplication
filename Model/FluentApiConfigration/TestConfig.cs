@@ -14,7 +14,7 @@ namespace Model.FluentApiConfigration
         public void Configure(EntityTypeBuilder<Test> modelBuilder)
         {
             modelBuilder.HasKey(x => x.TestId);
-            modelBuilder.Property(x => x.Type);
+            modelBuilder.Property(x => x.Type).IsRequired();
         }
     }
 }

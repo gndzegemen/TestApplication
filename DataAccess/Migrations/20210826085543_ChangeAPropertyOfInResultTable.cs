@@ -2,11 +2,10 @@
 
 namespace DataAccess.Migrations
 {
-    public partial class AddDataInHotelTestsTable : Migration
+    public partial class ChangeAPropertyOfInResultTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
 
         }
 

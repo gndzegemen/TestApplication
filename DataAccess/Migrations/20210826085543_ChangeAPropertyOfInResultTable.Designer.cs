@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210824064609_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210826085543_ChangeAPropertyOfInResultTable")]
+    partial class ChangeAPropertyOfInResultTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,28 +38,6 @@ namespace DataAccess.Migrations
                     b.ToTable("Hotels");
                 });
 
-            modelBuilder.Entity("Model.Models.HotelTest", b =>
-                {
-                    b.Property<int>("HotelTestId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("HotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HotelTestId");
-
-                    b.HasIndex("HotelId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("HotelTests");
-                });
-
             modelBuilder.Entity("Model.Models.Result", b =>
                 {
                     b.Property<int>("ResultId")
@@ -67,15 +45,20 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HotelTestId")
+                    b.Property<int>("HotelId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Output")
                         .HasColumnType("bit");
 
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
                     b.HasKey("ResultId");
 
-                    b.HasIndex("HotelTestId");
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("TestId");
 
                     b.ToTable("Results");
                 });
@@ -95,16 +78,16 @@ namespace DataAccess.Migrations
                     b.ToTable("Tests");
                 });
 
-            modelBuilder.Entity("Model.Models.HotelTest", b =>
+            modelBuilder.Entity("Model.Models.Result", b =>
                 {
                     b.HasOne("Model.Models.Hotel", "Hotel")
-                        .WithMany("HotelTests")
+                        .WithMany("Results")
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Model.Models.Test", "Test")
-                        .WithMany("HotelTests")
+                        .WithMany("Results")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -114,25 +97,14 @@ namespace DataAccess.Migrations
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("Model.Models.Result", b =>
-                {
-                    b.HasOne("Model.Models.HotelTest", "HotelTest")
-                        .WithMany()
-                        .HasForeignKey("HotelTestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HotelTest");
-                });
-
             modelBuilder.Entity("Model.Models.Hotel", b =>
                 {
-                    b.Navigation("HotelTests");
+                    b.Navigation("Results");
                 });
 
             modelBuilder.Entity("Model.Models.Test", b =>
                 {
-                    b.Navigation("HotelTests");
+                    b.Navigation("Results");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,7 @@ namespace Model.Models
         public string HotelName { get; set; }
         public string HotelUrl { get; set; }
 
-        public ICollection<HotelTest> HotelTests { get; set; }
+        public ICollection<Result> Results { get; set; }
 
 
     }

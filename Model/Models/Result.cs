@@ -11,9 +11,13 @@ namespace Model.Models
     {
         public int ResultId { get; set; }
 
-        [ForeignKey("HotelTest")]
-        public int HotelTestId { get; set; }
-        public HotelTest HotelTest { get; set; }
+        [ForeignKey("Hotel")]
+        public int HotelId { get; set; }
+        public Hotel Hotel { get; set; }
+
+        [ForeignKey("Test")]
+        public int TestId { get; set; }
+        public Test Test { get; set; }
 
         public bool Output { get; set; }
 

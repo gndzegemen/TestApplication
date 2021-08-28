@@ -6,20 +6,30 @@
 <div class="border p-4 bg-white">
     <div class="row">
         <div class="col-9">
-            <h2 class="text-info" >Hotel List</h2>
-        </div>
-        <div class="clo-3 text-right">
-            <a asp-action="Update" class="btn btn-info form-control"> Create new one </a>
+            <h2 class="text-info">Hotel List</h2>
         </div>
     </div>
-    
+
+    <div class="row">
+        <div class="col-3 text-right">
+            <a asp-action="Update" class="btn btn-info form-control"> Create new one </a>
+        </div>
+
+        <div class="col-3 text-right">
+            <a asp-action="AddMultipleData" class="btn btn-success form-control"> Add multiple data </a>
+        </div>
+        <div class="col-3 text-right">
+            <a asp-action="DeleteMultipleData" class="btn btn-danger form-control"> Delete multiple data </a>
+        </div>
+    </div>
+
     <br />
     <div>
         @if (Model.Count() > 0)
         {
             <table class="table table-striped border">
                 <tr class="table-secondary">
-                    
+
                     <th> Hotel Name</th>
                     <th>Hotel Url</th>
                     <th>Setting</th>
@@ -27,7 +37,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        
+
                         <td>
                             @item.HotelName
                         </td>

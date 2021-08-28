@@ -34,74 +34,47 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HotelTests",
-                columns: table => new
-                {
-                    HotelTestId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelId = table.Column<int>(type: "int", nullable: false),
-                    TestId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HotelTests", x => x.HotelTestId);
-                    table.ForeignKey(
-                        name: "FK_HotelTests_Hotels_HotelId",
-                        column: x => x.HotelId,
-                        principalTable: "Hotels",
-                        principalColumn: "HotelId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_HotelTests_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "TestId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Results",
                 columns: table => new
                 {
                     ResultId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelTestId = table.Column<int>(type: "int", nullable: false),
+                    HotelId = table.Column<int>(type: "int", nullable: false),
+                    TestId = table.Column<int>(type: "int", nullable: false),
                     Output = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Results", x => x.ResultId);
                     table.ForeignKey(
-                        name: "FK_Results_HotelTests_HotelTestId",
-                        column: x => x.HotelTestId,
-                        principalTable: "HotelTests",
-                        principalColumn: "HotelTestId",
+                        name: "FK_Results_Hotels_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotels",
+                        principalColumn: "HotelId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Results_Tests_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Tests",
+                        principalColumn: "TestId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_HotelTests_HotelId",
-                table: "HotelTests",
+                name: "IX_Results_HotelId",
+                table: "Results",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HotelTests_TestId",
-                table: "HotelTests",
-                column: "TestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Results_HotelTestId",
+                name: "IX_Results_TestId",
                 table: "Results",
-                column: "HotelTestId");
+                column: "TestId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Results");
-
-            migrationBuilder.DropTable(
-                name: "HotelTests");
 
             migrationBuilder.DropTable(
                 name: "Hotels");

@@ -1,6 +1,7 @@
 ﻿using DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,6 +39,8 @@ namespace TestApplication.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+
         public IActionResult Update(Hotel obj)
         {
             if (ModelState.IsValid)
@@ -46,6 +49,7 @@ namespace TestApplication.Controllers
                 {
                     //Cretate
                     _db.Hotels.Add(obj);
+
                 }
                 else
                 {
@@ -57,13 +61,38 @@ namespace TestApplication.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(obj);
-             
+
         }
 
         public IActionResult Delete(int id)
         {
             var objDb = _db.Hotels.FirstOrDefault(x => x.HotelId == id);
             _db.Hotels.Remove(objDb);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AddMultipleData()
+        {
+            List<Hotel> HotelList = new List<Hotel>();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                HotelList.Add(new Hotel { HotelName = Guid.NewGuid().ToString(), HotelUrl= Guid.NewGuid().ToString() });
+            }
+
+            _db.Hotels.AddRange(HotelList);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult DeleteMultipleData()
+        {
+            IEnumerable<Hotel> HotelList = _db.Hotels.OrderByDescending(a => a.HotelId).Take(5).ToList();
+
+            
+
+            _db.Hotels.RemoveRange(HotelList);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

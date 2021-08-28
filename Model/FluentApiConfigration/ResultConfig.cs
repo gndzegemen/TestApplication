@@ -14,7 +14,7 @@ namespace Model.FluentApiConfigration
         public void Configure(EntityTypeBuilder<Result> modelBuilder)
         {
             modelBuilder.HasKey(x => x.ResultId);
-            modelBuilder.Property(x => x.HotelTestId);
+           
             modelBuilder.Property(x => x.Output);
         }
     }

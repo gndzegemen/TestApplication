@@ -14,8 +14,8 @@ namespace Model.FluentApiConfigration
         public void Configure(EntityTypeBuilder<Hotel> modelBuilder)
         {
             modelBuilder.HasKey(x => x.HotelId);
-            modelBuilder.Property(x => x.HotelName);
-            modelBuilder.Property(x => x.HotelUrl);
+            modelBuilder.Property(x => x.HotelName).IsRequired();
+            modelBuilder.Property(x => x.HotelUrl).IsRequired();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace Model.Models
     {
         public int TestId { get; set; }
         public string Type { get; set; }
-        public ICollection<HotelTest> HotelTests { get; set; }
+        public ICollection<Result> Results { get; set; }
     }
 }
