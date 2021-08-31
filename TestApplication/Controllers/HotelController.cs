@@ -1,8 +1,13 @@
-﻿using DataAccess.Data;
+﻿
+using DataAccess.Data;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 
 namespace TestApplication.Controllers
@@ -10,10 +15,12 @@ namespace TestApplication.Controllers
     public class HotelController : Controller
     {
         private readonly ApplicationDbContext _db;
+        
 
         public HotelController(ApplicationDbContext db)
         {
             _db = db;
+            
         }
         public IActionResult Index()
         {
@@ -78,7 +85,7 @@ namespace TestApplication.Controllers
 
             for (int i = 1; i <= 5; i++)
             {
-                HotelList.Add(new Hotel { HotelName = Guid.NewGuid().ToString(), HotelUrl= Guid.NewGuid().ToString() });
+                HotelList.Add(new Hotel { HotelName = Guid.NewGuid().ToString(), HotelUrl = Guid.NewGuid().ToString() });
             }
 
             _db.Hotels.AddRange(HotelList);
@@ -90,11 +97,42 @@ namespace TestApplication.Controllers
         {
             IEnumerable<Hotel> HotelList = _db.Hotels.OrderByDescending(a => a.HotelId).Take(5).ToList();
 
-            
+
 
             _db.Hotels.RemoveRange(HotelList);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        [Obsolete]
+        public IActionResult ImportHotels(IFormFile file)
+        {
+            List<Hotel> HotelList = new List<Hotel>();
+            List<string> HotelNameList = _db.Hotels.Select(x => x.HotelName.ToLower()).ToList();
+
+            using (var sreader = new StreamReader(file.OpenReadStream()))
+            {
+                string[] headers = sreader.ReadLine().Split(',');     //Title
+                while (!sreader.EndOfStream)                          //get all the content in rows 
+                {
+                    string[] rows = sreader.ReadLine().Split(',');
+                    string hotelName = rows[0];
+                    string hotelUrl = rows[1];
+                    if (HotelNameList.Contains(hotelName.ToLower()))
+                    {
+                        continue;
+                    }
+                    else { HotelList.Add(new Hotel { HotelName = hotelName, HotelUrl = hotelUrl }); }
+                       
+                }
+
+            }
+           
+            _db.Hotels.AddRange(HotelList);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
+

@@ -21,6 +21,7 @@
         <div class="col-3 text-right">
             <a asp-action="DeleteMultipleData" class="btn btn-danger form-control"> Delete multiple data </a>
         </div>
+        
     </div>
 
     <br />
@@ -58,4 +59,16 @@
             <p>Listelenecek herhangi bir otel bulunamadı</p>
         }
     </div>
+</div>
+
+<div>
+    <form method="post" asp-action="ImportHotels" enctype="multipart/form-data">
+        <div>
+            <label for="file">Choose file to upload</label>
+            <input type="file" id="file" name="file" multiple>
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
 </div>

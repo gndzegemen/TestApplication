@@ -66,6 +66,12 @@ namespace TestApplication.Controllers
             Hotel hotel = _db.Hotels.Find(hotelId);
             Test test = _db.Tests.Find(testId);
             string hotelURL = hotel.HotelUrl;
+            
+
+            var bService = new Services.BookingTesterService();
+            bService.TestBooking(hotelURL, 1, 3, list1, list2, list3, list4, list5);
+            
+
             _db.Results.Add(new Result
             {
                 HotelId = hotelId,
@@ -73,9 +79,7 @@ namespace TestApplication.Controllers
             });
             _db.SaveChanges();
 
-            var bService = new TestApplication.Services.BookingTesterService();
-            bService.TestBooking(hotelURL, 1, 3, list1, list2, list3, list4, list5);
-            return RedirectToAction("Index","Result");
+            return RedirectToAction("Index", "Result");
         }
     }
 }

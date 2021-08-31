@@ -1,31 +1,37 @@
 ﻿@model IEnumerable<Model.Models.Result>
+@{ 
 
+    int number = 1;
+}
 
 <div>
     @if (Model.Count() > 0)
     {
         <table class="table table-striped border">
             <tr class="table-secondary">
-
-                <th> Hotel Id</th>
-                <th>Test Id</th>
+                <th> Id</th>
+                <th> Hotel Name</th>
+                <th>Test Type</th>
                 <th>Result</th>
             </tr>
             @foreach (var item in Model)
             {
-                <tr>
+        <tr>
+            <td>
+                @(number++)
+            </td>
 
-                    <td>
-                        @item.HotelId
-                    </td>
-                    <td>
-                        @item.TestId
-                    </td>
+            <td>
+                @item.Hotel.HotelName
+            </td>
+            <td>
+                @item.Test.Type
+            </td>
 
-                    <td>
-                        @item.Output
-                    </td>
-                </tr>
+            <td>
+                @item.Output
+            </td>
+        </tr>
             }
         </table>
     }

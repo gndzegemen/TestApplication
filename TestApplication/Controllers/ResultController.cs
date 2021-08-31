@@ -1,5 +1,6 @@
 ﻿using DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ namespace TestApplication.Controllers
         }
         public IActionResult Index()
         {
-            List<Result> objList = _db.Results.ToList();
+            List<Result> objList = _db.Results.Include(h=>h.Hotel).Include(t=>t.Test).ToList();
+
+            
 
             return View(objList);
         }

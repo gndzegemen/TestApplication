@@ -286,7 +286,7 @@ namespace TestApplication.Services
         }
 
 
-        void CompletePaymentWithTransfer()
+        void CompletePaymentWithManyOrder()
         {
 
 
@@ -325,6 +325,8 @@ namespace TestApplication.Services
 
         }
 
+        void CheckTruthTest() { 
+        }
 
         public void TestBooking(string weburl, int? AdultsNumber = 1, int? ChildrenNumber = 1, List<int> ChildAge = null,
             List<string> AdultNames = null, List<string> AdultSurnames = null, List<string> ChildNames = null, List<string> ChildSurnames = null)
@@ -333,7 +335,7 @@ namespace TestApplication.Services
             SelectTransfers();
             FillGuestInfos(AdultsNumber, ChildrenNumber, AdultNames, AdultSurnames, ChildNames, ChildSurnames);
             //CompletePaymentWithCreditCard();
-            CompletePaymentWithTransfer();
+            CompletePaymentWithManyOrder();
         }
 
     }
